@@ -72,13 +72,13 @@ def main():
     print("the exchange replied" , hello_from_exchange,file=sys.stderr)
     createPosition(hello_from_exchange)
     print(currentPosition)
-    #write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": 1})
+    write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "SELL", "price": 1002, "size": 1})
     while True:
         hello_from_exchange = read(exchange)
         '''getBuyOrders(hello_from_exchange)
         getSellOrders(hello_from_exchange)
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)'''
-        buySingleBond(exchange,hello_from_exchange)
+        #buySingleBond(exchange,hello_from_exchange)
         #sellSingleBond(exchange,hello_from_exchange)
         getSellOrders(hello_from_exchange)
         print(hello_from_exchange)
