@@ -65,6 +65,7 @@ def createPosition(output):
     for symbol in output['symbols']:
         currentPosition[symbol['symbol']]= symbol['position']
         currentSellOrders[symbol['symbol']] = symbol['position']
+        currentBuyOrders[symbol['symbol']] = symbol['position']
     return 1
 def printPosition():
     print(currentPosition)
