@@ -28,16 +28,16 @@ def buySingleBond(exchange, output):
     if currentPosition['BOND'] == 0 and currentBuyOrders['BOND'] == 0:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
-        write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": 1})
-        currentBuyOrders['BOND'] = 1
+        write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": 10})
+        currentBuyOrders['BOND'] = 10
         print(currentBuyOrders['BOND'])
         time.sleep(1)
 def sellSingleBond(exchange,output):
-    if currentPosition['BOND'] == 1 and currentSellOrders['BOND'] == 0:
+    if currentPosition['BOND'] == 10 and currentSellOrders['BOND'] == 0:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single sell order")
-        write(exchange,{"type": "add" , "order_id": int(timeid) , "symbol" : 'BOND' , "dir": "SELL" , "price": 1000, "size":1 })
-        currentSellOrders['BOND'] = 1
+        write(exchange,{"type": "add" , "order_id": int(timeid) , "symbol" : 'BOND' , "dir": "SELL" , "price": 1000, "size":10 })
+        currentSellOrders['BOND'] = 10
         print(currentSellOrders['BOND'])
         time.sleep(1)
 
