@@ -21,13 +21,13 @@ def read(exchange):
 
 def getBuyOrders(output):
     if 'buy' in output:
-        print(output['buy'] + output['symbol'])
+        print(str(output['buy']) + str(output['symbol']))
     return 1
 
 def getSellOrder():
     # LOOK for which exchange reads are for sell/buy orders
     if 'sell' in output:
-        print(output['sell'] + output["symbol"])
+        print(str(output['sell']) + str(output["symbol"]))
     return 1
 
 def calculateBuyPrice():
