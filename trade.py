@@ -59,7 +59,7 @@ def updatePosition(output):
 def createPosition(output):
     for symbol in output['symbols']:
         currentPosition[symbol['symbol']]= symbol['position']
-        currentSellOrders[symbl['symbol']] = symvbol['position']
+        currentSellOrders[symbol['symbol']] = symbol['position']
     return 1
 def printPosition():
     print(currentPosition)
