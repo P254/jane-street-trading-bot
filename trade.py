@@ -10,7 +10,7 @@ import time
 currentPosition = {}
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("test-exch-PMPPLUSPLUS", 25000))
+    s.connect(("test-exch-PMPPLUSPLUS", 25001))
     return s.makefile('rw', 1)
 
 def write(exchange, obj):
@@ -20,12 +20,12 @@ def write(exchange, obj):
 def read(exchange):
     return json.loads(exchange.readline())
 def BuySingleBond(exchange, output):
-    print ("BUYING A SINGLE BOND")
 
     if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['BOND'] == 0:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
         write(exchange, {"type": "add", "order_id": timeid , "symbol": 'BOND', "dir": "BUY", "price": 997, "size": 1})
+
         currentPosition['BOND'] = 1
 
 def getBuyOrders(output):
@@ -72,7 +72,6 @@ def main():
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)'''
         BuySingleBond(exchange,hello_from_exchange)
         getSellOrders(hello_from_exchange)
-        printPosition()
-        time.sleep(3)
+        print(hello_from_exchange)
 if __name__ == "__main__":
     main()
