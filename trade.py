@@ -13,7 +13,7 @@ currentSellOrders = {}
 
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("test-exch-PMPPLUSPLUS", 25000))
+    s.connect(("production", 20000))
     return s.makefile('rw', 1)
 
 def write(exchange, obj):
