@@ -8,6 +8,8 @@ import datetime
 import time
 
 currentPosition = {}
+currentSellOrders = {}
+
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("test-exch-PMPPLUSPLUS", 25001))
@@ -19,14 +21,19 @@ def write(exchange, obj):
 
 def read(exchange):
     return json.loads(exchange.readline())
-def BuySingleBond(exchange, output):
-
+def buySingleBond(exchange, output):
     if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['BOND'] == 0:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
-        write(exchange, {"type": "add", "order_id": timeid , "symbol": 'BOND', "dir": "BUY", "price": 997, "size": 1})
+        write(exchange, {"type": "add", "order_id": timeid , "symbol": 'BOND', "dir": "BUY", "price": 998, "size": 1})
 
         currentPosition['BOND'] = 1
+def sellSingleBond(exchange,output):
+    if 'buy' in output and output['symbol'] == 'BOND' and currentSellOrders['BOND'] < currentPosition['BOND']:
+        timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
+        print("Placing a single sell order")
+        write(exchange,{"type": "add" , "order_id": timeid , "symbol" : 'BOND' , "dir": "SELL" , "price": 1002, "size":1 })
+        currentSellOrders['BOND'] = currentSellOrders['BOND'] + 1
 
 def getBuyOrders(output):
     if 'buy' in output and output['symbol'] == 'BOND':
@@ -52,6 +59,7 @@ def updatePosition(output):
 def createPosition(output):
     for symbol in output['symbols']:
         currentPosition[symbol['symbol']]= symbol['position']
+        currentSellOrders[symbl['symbol']] = symvbol['position']
     return 1
 def printPosition():
     print(currentPosition)
@@ -70,7 +78,8 @@ def main():
         '''getBuyOrders(hello_from_exchange)
         getSellOrders(hello_from_exchange)
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)'''
-        BuySingleBond(exchange,hello_from_exchange)
+        buySingleBond(exchange,hello_from_exchange)
+        sellSingleBond(exchange,hello_from_exchange)
         getSellOrders(hello_from_exchange)
         print(hello_from_exchange)
         time.sleep(3)
