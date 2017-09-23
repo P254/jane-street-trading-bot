@@ -19,6 +19,20 @@ def write(exchange, obj):
 def read(exchange):
     return json.loads(exchange.readline())
 
+def getBuyOrders(output):
+    # LOOK for which exchange reads are for sell/buy orders
+    if 'sell' in output:
+        print(output['sell'])
+
+    return 1
+
+def getSellOrder():
+    return 1
+
+def calculateBuyPrice():
+    return 1
+
+def calculateSellPrice()
 
 def main():
     timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
@@ -27,10 +41,11 @@ def main():
     write(exchange, {"type": "hello", "team": "PMPPLUSPLUS"})
     print("the exchange replied" , read(exchange),file=sys.stderr)
     write(exchange, {"type": "add", "order_id": timeid , "symbol": 'BOND', "dir": "BUY", "price": 997, "size": 1})
-    while True: 
+    while True:
         hello_from_exchange = read(exchange)
+        getBuyOrders(hello_from_exchange)
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
         time.sleep(3)
-	
+
 if __name__ == "__main__":
     main()
