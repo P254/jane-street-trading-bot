@@ -22,9 +22,9 @@ def write(exchange, obj):
 
 def read(exchange):
     return json.loads(exchange.readline())
-singleBondFlag = 0
+
 def buySingleBond(exchange, output):
-    if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['BOND'] == 0 and singleBondFlag==0:
+    if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['BOND'] == 0 and len(currentBuyOrders) < 1:
         singleBondFlag = 1
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
