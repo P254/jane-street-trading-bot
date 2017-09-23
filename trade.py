@@ -8,6 +8,7 @@ import datetime
 import time
 
 currentPosition = {}
+currentBuyOrders = {}
 currentSellOrders = {}
 
 def connect():
@@ -26,14 +27,13 @@ def buySingleBond(exchange, output):
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
         write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 998, "size": 1})
-
-        currentPosition['BOND'] = 1
+        currentBuyOrders['BOND'] = {'Price':998,'Dir':'BUY'}
 def sellSingleBond(exchange,output):
     if 'buy' in output and output['symbol'] == 'BOND' and currentSellOrders['BOND'] < currentPosition['BOND']:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single sell order")
         write(exchange,{"type": "add" , "order_id": int(timeid) , "symbol" : 'BOND' , "dir": "SELL" , "price": 1002, "size":1 })
-        currentSellOrders['BOND'] = currentSellOrders['BOND'] + 1
+        currentSellOrders['BOND'] = {'Price':1002,'Dir':'SELL'}
 
 def getBuyOrders(output):
     if 'buy' in output and output['symbol'] == 'BOND':
@@ -63,6 +63,15 @@ def createPosition(output):
     return 1
 def printPosition():
     print(currentPosition)
+
+def checkFill(output):
+        if 'fill' in output:
+            if output['dir'] = "BUY":
+                currentPosition[output['symbol']] = currentPosition[output['symbol']] + output['size']
+            if output['dir'] = "SELL":
+                currentPosition[output['symbol']] = currentPosition[output['symbol']] - output['size']
+
+
 def main():
     timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
     exchange = connect()
@@ -81,7 +90,9 @@ def main():
         buySingleBond(exchange,hello_from_exchange)
         #sellSingleBond(exchange,hello_from_exchange)
         getSellOrders(hello_from_exchange)
-        print(hello_from_exchange)
-        time.sleep(3)
+        checkFill(hello_from_exchange)
+        printPosition()
+        #print(hello_from_exchange)
+        #time.sleep(3)
 if __name__ == "__main__":
     main()
