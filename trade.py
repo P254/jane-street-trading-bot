@@ -40,7 +40,7 @@ def updatePosition(output):
     return 1
 def createPosition(output):
     for symbol in output['symbols']:
-        currentPosition[symbol]= output['symbols'][symbol]
+        currentPosition[symbol['symbol']]= symbol['position']
     return 1
 
 def main():
