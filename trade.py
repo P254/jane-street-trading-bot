@@ -20,19 +20,21 @@ def read(exchange):
     return json.loads(exchange.readline())
 
 def getBuyOrders(output):
-    # LOOK for which exchange reads are for sell/buy orders
-    if 'sell' in output:
-        print(output['sell'])
-
+    if 'buy' in output:
+        print(output['buy'] + output['symbol'])
     return 1
 
 def getSellOrder():
+    # LOOK for which exchange reads are for sell/buy orders
+    if 'sell' in output:
+        print(output['sell'] + output["symbol"])
     return 1
 
 def calculateBuyPrice():
     return 1
 
-def calculateSellPrice()
+def calculateSellPrice():
+    return 1
 
 def main():
     timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
