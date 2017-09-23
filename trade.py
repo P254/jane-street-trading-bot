@@ -69,7 +69,7 @@ def printPosition():
     print(currentPosition)
 
 def checkFill(output):
-        if 'fill' in output:
+        if output['type'] == 'fill':
             print("FILL")
             time.sleep(5)
             if output['dir'] == "BUY":
