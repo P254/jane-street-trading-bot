@@ -75,8 +75,10 @@ def checkFill(output):
             time.sleep(5)
             if output['dir'] == "BUY":
                 currentPosition[output['symbol']] = currentPosition[output['symbol']] + output['size']
+                currentBuyOrders["BOND"] = 0
             if output['dir'] == "SELL":
                 currentPosition[output['symbol']] = currentPosition[output['symbol']] - output['size']
+                currentSellOrders["BOND"] = 0
 
 
 def main():
