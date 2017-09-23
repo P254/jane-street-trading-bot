@@ -73,5 +73,6 @@ def main():
         BuySingleBond(exchange,hello_from_exchange)
         getSellOrders(hello_from_exchange)
         print(hello_from_exchange)
+        time.sleep(3)
 if __name__ == "__main__":
     main()
