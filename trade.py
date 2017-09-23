@@ -25,18 +25,15 @@ def read(exchange):
 
 def buySingleBond(exchange, output):
     #if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['BOND'] == 0 and len(currentBuyOrders) < 1:
-    if currentBuyOrders['BOND'] <1 and currentSellOrders['BOND'] ==0:
-        singleBondFlag = 1
+    if currentPosition['BOND'] == 0:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
-        #time.sleep(5)
         write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": 1})
-
         currentBuyOrders['BOND'] = 1
         print(currentBuyOrders['BOND'])
         time.sleep(5)
 def sellSingleBond(exchange,output):
-    if currentSellOrders['BOND'] < currentPosition['BOND']:
+    if currentPosition['BOND'] == 1:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single sell order")
         write(exchange,{"type": "add" , "order_id": int(timeid) , "symbol" : 'BOND' , "dir": "SELL" , "price": 1000, "size":1 })
@@ -103,7 +100,7 @@ def main():
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)'''
         buySingleBond(exchange,hello_from_exchange)
         sellSingleBond(exchange,hello_from_exchange)
-        getSellOrders(hello_from_exchange)
+        #getSellOrders(hello_from_exchange)
         checkFill(hello_from_exchange)
         printPosition()
         #print(hello_from_exchange)
