@@ -7,6 +7,7 @@ import json
 import datetime
 import time
 
+
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("test-exch-PMPPLUSPLUS", 25000))
@@ -20,21 +21,23 @@ def read(exchange):
     return json.loads(exchange.readline())
 
 def getBuyOrders(output):
-    if 'buy' in output:
-        print(str(output['buy']) + str(output['symbol']))
+    if 'buy' in output and output['symbol'] == 'BOND':
+        symbol = str(output['symbol'])
+        buyOrders = output['buy']
+        bondBuyPricePoints = [997,998,999]
+        print(str(output['buy']) + " " + str(output['symbol']))
     return 1
 
-def getSellOrder():
+def getSellOrders(output):
     # LOOK for which exchange reads are for sell/buy orders
     if 'sell' in output:
-        print(str(output['sell']) + str(output["symbol"]))
+        print(str(output['sell']) +" "+ str(output["symbol"]))
     return 1
 
-def calculateBuyPrice():
-    return 1
+def updatePosition(output):
+    if 'position' in output and 'symbols' in output: #checks for the output from the jsonString
+        print(json['symbols'])
 
-def calculateSellPrice():
-    return 1
 
 def main():
     timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
@@ -46,6 +49,8 @@ def main():
     while True:
         hello_from_exchange = read(exchange)
         getBuyOrders(hello_from_exchange)
+        getSellOrders(hello_from_exchange)
+        updatePosition(hello_from_exchange)
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
         time.sleep(3)
 
