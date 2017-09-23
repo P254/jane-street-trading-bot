@@ -66,9 +66,9 @@ def printPosition():
 
 def checkFill(output):
         if 'fill' in output:
-            if output['dir'] = "BUY":
+            if output['dir'] == "BUY":
                 currentPosition[output['symbol']] = currentPosition[output['symbol']] + output['size']
-            if output['dir'] = "SELL":
+            if output['dir'] == "SELL":
                 currentPosition[output['symbol']] = currentPosition[output['symbol']] - output['size']
 
 
