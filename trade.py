@@ -20,7 +20,8 @@ def write(exchange, obj):
 def read(exchange):
     return json.loads(exchange.readline())
 def BuySingleBond(output):
-    if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['Bond'] == 0:
+    if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['BOND'] == 0:
+        print("Placing a single buy order")
         write(exchange, {"type": "add", "order_id": timeid , "symbol": 'BOND', "dir": "BUY", "price": 997, "size": 1})
         currentPosition['BOND'] = 1
 
@@ -34,8 +35,11 @@ def getBuyOrders(output):
 
 def getSellOrders(output):
     # LOOK for which exchange reads are for sell/buy orders
-    if 'sell' in output:
-        print(str(output['sell']) +" "+ str(output["symbol"]))
+    if 'sell' in output and output['symbol'] == 'BOND':
+        symbol = str(output['symbol'])
+        sellOrders = output['sell']
+        print("The sell orders are: ")
+        print(str(output['sell']))
     return 1
 
 def updatePosition(output):
@@ -64,6 +68,7 @@ def main():
         getSellOrders(hello_from_exchange)
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)'''
         BuySingleBond(hello_from_exchange)
+        getSellOrders(hello_from_exchange)
         printPosition()
         time.sleep(3)
 if __name__ == "__main__":
