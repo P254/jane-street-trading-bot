@@ -7,7 +7,7 @@ import json
 import datetime
 import time
 
-
+currentPosition = {}
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("test-exch-PMPPLUSPLUS", 25000))
@@ -37,22 +37,28 @@ def getSellOrders(output):
 def updatePosition(output):
     if 'position' in output and 'symbols' in output: #checks for the output from the jsonString
         print(json['symbols'])
-
+    return 1
+def createPosition(output):
+    for symbol in output['symbols']:
+        currentPosition[symbol]= output['symbols'][symbol]
+    return 1
 
 def main():
     timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
     exchange = connect()
     print(timeid)
     write(exchange, {"type": "hello", "team": "PMPPLUSPLUS"})
-    print("the exchange replied" , read(exchange),file=sys.stderr)
-    write(exchange, {"type": "add", "order_id": timeid , "symbol": 'BOND', "dir": "BUY", "price": 997, "size": 1})
+    hello_from_exchange = read(exchange)
+    print("the exchange replied" , hello_from_exchange,file=sys.stderr)
+    createPosition(hello_from_exchange)
+    print(currentPosition)
+    '''write(exchange, {"type": "add", "order_id": timeid , "symbol": 'BOND', "dir": "BUY", "price": 997, "size": 1})
     while True:
         hello_from_exchange = read(exchange)
         getBuyOrders(hello_from_exchange)
         getSellOrders(hello_from_exchange)
         updatePosition(hello_from_exchange)
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
-        time.sleep(3)
-
+        time.sleep(3)'''
 if __name__ == "__main__":
     main()
