@@ -13,7 +13,7 @@ currentSellOrders = {}
 
 def connect():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("production", 25000)) #test-exch-PMPPLUSPLUS
+    s.connect(("test-exch-PMPPLUSPLUS", 25000)) #test-exch-PMPPLUSPLUS
     return s.makefile('rw', 1)
 
 def write(exchange, obj):
@@ -28,16 +28,16 @@ def buySingleBond(exchange, output):
     if currentPosition['BOND'] == 0 and currentBuyOrders['BOND'] == 0:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
-        write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": 10})
-        currentBuyOrders['BOND'] = 10
+        write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": 30})
+        currentBuyOrders['BOND'] = 30
         print(currentBuyOrders['BOND'])
         time.sleep(1)
 def sellSingleBond(exchange,output):
-    if currentPosition['BOND'] == 10 and currentSellOrders['BOND'] == 0:
+    if currentPosition['BOND'] == 30 and currentSellOrders['BOND'] == 0:
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single sell order")
-        write(exchange,{"type": "add" , "order_id": int(timeid) , "symbol" : 'BOND' , "dir": "SELL" , "price": 1000, "size":10 })
-        currentSellOrders['BOND'] = 10
+        write(exchange,{"type": "add" , "order_id": int(timeid) , "symbol" : 'BOND' , "dir": "SELL" , "price": 1001, "size":30 })
+        currentSellOrders['BOND'] = 30
         print(currentSellOrders['BOND'])
         time.sleep(1)
 
