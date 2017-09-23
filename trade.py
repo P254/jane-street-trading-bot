@@ -29,7 +29,7 @@ def buySingleBond(exchange, output):
         singleBondFlag = 1
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
-        time.sleep(5)
+        #time.sleep(5)
         write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 998, "size": 1})
         currentBuyOrders['BOND'] = {'Price':998,'Dir':'BUY'}
 def sellSingleBond(exchange,output):
@@ -70,6 +70,8 @@ def printPosition():
 
 def checkFill(output):
         if 'fill' in output:
+            print("FILL")
+            time.sleep(5)
             if output['dir'] == "BUY":
                 currentPosition[output['symbol']] = currentPosition[output['symbol']] + output['size']
             if output['dir'] == "SELL":
