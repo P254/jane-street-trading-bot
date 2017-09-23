@@ -26,10 +26,11 @@ def read(exchange):
 def buySingleBond(exchange, output):
     #if 'sell' in output and output['symbol'] == 'BOND' and currentPosition['BOND'] == 0 and len(currentBuyOrders) < 1:
     if currentPosition['BOND'] == 0 and currentBuyOrders['BOND'] == 0:
+        sizeToAdd = 30- currentPosition['BOND']
         timeid = str(datetime.datetime.now()).split(" ")[1].replace(":","").split(".")[0]
         print("Placing a single buy order")
-        write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": 30})
-        currentBuyOrders['BOND'] = 30
+        write(exchange, {"type": "add", "order_id": int(timeid) , "symbol": 'BOND', "dir": "BUY", "price": 999, "size": sizeToAdd})
+        currentBuyOrders['BOND'] = sizeToAdd
         print(currentBuyOrders['BOND'])
         time.sleep(1)
 def sellSingleBond(exchange,output):
