@@ -20,9 +20,9 @@ We were given `three ports` to connect to test our bot. There were three exchang
 ## Trading Algorithm
 The general `algorithm` of the bot we designed was to calculate a `running average` of the `spread` of all the different `commodities` on the marketplace from the start to the end of the competition to determine the `'fair price'` to `trade` the `commoditiy` for. 
 
-**_Any commodity bought under the running 'fair price' is considered a good buy with respect to profit after a very long time._**
+**_> Any commodity bought under the running 'fair price' is considered a good buy with respect to profit after a very long time._**
 
-**_Any commodity sold over the running 'fair price' is considered a good sell with respect to profit after a very long time._**
+**_> Any commodity sold over the running 'fair price' is considered a good sell with respect to profit after a very long time._**
 
 While the `running average` may have been `volatile` at the beginning of the competition due to `inconsistencies in the market`, after an hour of trading the values of the commodities may have gone up and down by several dollars, whereas the `'fair price'` value for that `commodity` ultimately **stayed the same.** Across `12 hours`, this algorithm earned a `profit` of `$43,200`.
 
